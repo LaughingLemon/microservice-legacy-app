@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form:form action="/app/newuser" method="post" commandName="user">
+<form:form action="newuser" method="post" commandName="user">
     <div class="errors">
         <form:errors path="*"/>
     </div>

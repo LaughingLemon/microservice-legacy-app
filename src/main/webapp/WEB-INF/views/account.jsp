@@ -11,7 +11,7 @@
     <tr><td>Emailaddress</td><td>${currentUser.emailAddress}</td></tr>
   </table>
 
-  <a href="/app/logout">Logout</a>
+  <a href="<%=request.getContextPath()%>/app/logout">Logout</a>
 
 </body>
 </html>

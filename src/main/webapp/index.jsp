@@ -14,4 +14,4 @@
   ~ limitations under the License.
   --%>
 
-<% response.sendRedirect("/app/index.html"); %>
+<% response.sendRedirect(request.getContextPath() + "/app/index.html"); %>

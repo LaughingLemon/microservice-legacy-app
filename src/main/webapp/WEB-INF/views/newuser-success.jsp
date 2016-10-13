@@ -10,7 +10,7 @@
         Welcome ${user.displayName}, a welcome email has been sent to ${user.emailAddress}.
     </p>
     <p>
-        <a href="/app/">Login</a>.
+        <a href="<%=request.getContextPath()%>/app/">Login</a>.
     </p>
 </body>
 </html>

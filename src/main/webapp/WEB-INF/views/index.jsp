@@ -5,7 +5,7 @@
 </head>
 
 <body>
-<form action="/app/login" method="post">
+<form action="<%=request.getContextPath()%>/app/login" method="post">
     <fieldset>
         <legend>Login</legend>
         <table>
@@ -28,7 +28,7 @@
         </table>
     </fieldset>
 </form>
-<a href="/app/newuser">Create Account</a>
+<a href="<%=request.getContextPath()%>/app/newuser">Create Account</a>
 </body>
 
 </html>
