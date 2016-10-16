@@ -14,10 +14,31 @@
  * limitations under the License.
  */
 
-package nl.conspect.legacy.repository;
+package nl.conspect.legacy.user.web;
+
+import nl.conspect.legacy.user.User;
 
 /**
  * @author marten
  */
-public interface OrderRepository {
+public class NewUserRegistrationForm extends User {
+
+    private String passwordValidation;
+    private String emailValidation;
+
+    public String getEmailValidation() {
+        return emailValidation;
+    }
+
+    public void setEmailValidation(String emailValidation) {
+        this.emailValidation = emailValidation;
+    }
+
+    public String getPasswordValidation() {
+        return passwordValidation;
+    }
+
+    public void setPasswordValidation(String passwordValidation) {
+        this.passwordValidation = passwordValidation;
+    }
 }

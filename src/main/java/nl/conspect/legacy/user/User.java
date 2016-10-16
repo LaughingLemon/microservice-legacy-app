@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package nl.conspect.legacy.domain;
+package nl.conspect.legacy.user;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
 
     private long id;
     private String username;

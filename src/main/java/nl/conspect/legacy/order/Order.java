@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package nl.conspect.legacy.repository;
+package nl.conspect.legacy.order;
 
-import nl.conspect.legacy.domain.User;
+import nl.conspect.legacy.user.User;
 
 /**
- * Created by marten on 17-04-15.
+ * @author marten
  */
-public interface UserRepository {
+public class Order {
 
-   void save(User user);
-
-   User find(long id);
-   User findWithUsername(String username);
-
-   void remove(User user);
-
-
+    private User user;
 }

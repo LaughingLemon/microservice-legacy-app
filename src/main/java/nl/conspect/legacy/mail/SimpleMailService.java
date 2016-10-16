@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.conspect.legacy.service.impl;
+package nl.conspect.legacy.mail;
 
 import java.util.Properties;
 import javax.mail.Message;
@@ -17,8 +17,9 @@ import javax.mail.internet.MimeMessage;
  *
  * @author Shaun
  */
-public class MailService {
+class SimpleMailService implements MailService {
 
+    @Override
     public void sendEmail(SendEmail sendEmail) {
         Thread mailThread = new Thread(() -> {
             Properties props = new Properties();

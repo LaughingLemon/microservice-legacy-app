@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package nl.conspect.legacy.repository.impl;
+package nl.conspect.legacy.user;
 
-import nl.conspect.legacy.domain.User;
-import nl.conspect.legacy.repository.UserRepository;
+import nl.conspect.legacy.user.UserRepository;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -26,7 +25,7 @@ import java.util.List;
 /**
  * Created by marten on 17-04-15.
  */
-public class HibernateUserRepositoryImpl extends HibernateDaoSupport implements UserRepository {
+class HibernateUserRepositoryImpl extends HibernateDaoSupport implements UserRepository {
 
     public void save(User user) {
         getHibernateTemplate().saveOrUpdate(user);

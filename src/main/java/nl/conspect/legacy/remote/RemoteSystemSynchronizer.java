@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.conspect.legacy.service.impl;
+package nl.conspect.legacy.remote;
 
 import java.io.IOException;
-import nl.conspect.legacy.domain.User;
-import nl.conspect.legacy.util.RemoteSystemClient;
+import nl.conspect.legacy.user.User;
 
 /**
  *

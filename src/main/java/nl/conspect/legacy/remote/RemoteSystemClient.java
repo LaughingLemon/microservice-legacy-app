@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package nl.conspect.legacy.util;
+package nl.conspect.legacy.remote;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

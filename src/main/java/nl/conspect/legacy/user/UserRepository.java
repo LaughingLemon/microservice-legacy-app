@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-package nl.conspect.legacy.repository.impl;
+package nl.conspect.legacy.user;
 
 /**
- * @author marten
+ * Created by marten on 17-04-15.
  */
-public class JpaOrderRepositoryImpl {
+interface UserRepository {
+
+   void save(User user);
+
+   User find(long id);
+   User findWithUsername(String username);
+
+   void remove(User user);
+
 
 }

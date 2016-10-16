@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package nl.conspect.legacy.service;
+package nl.conspect.legacy.payment;
 
 /**
- * @author Marten Deinum
+ * @author marten
  */
-public interface InventoryService {
+interface PaymentRepository {
 }

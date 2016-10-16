@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package nl.conspect.legacy.domain;
+package nl.conspect.legacy.inventory;
 
 /**
- * @author marten
+ * @author Marten Deinum
  */
-public class Order {
-
-    private User user;
+public interface InventoryService {
 }

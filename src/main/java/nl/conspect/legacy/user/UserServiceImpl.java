@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package nl.conspect.legacy.service.impl;
+package nl.conspect.legacy.user;
 
-import nl.conspect.legacy.domain.User;
-import nl.conspect.legacy.repository.UserRepository;
-import nl.conspect.legacy.service.UserService;
+import nl.conspect.legacy.mail.MailService;
+import nl.conspect.legacy.remote.RemoteSystemSynchronizer;
+import nl.conspect.legacy.mail.SendEmail;
 
 /**
  * @author Marten Deinum
  */
-public class UserServiceImpl implements UserService {
+class UserServiceImpl implements UserService {
 
     private final MailService mailService;
     private final RemoteSystemSynchronizer synchronizer;
