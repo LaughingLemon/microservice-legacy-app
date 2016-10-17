@@ -16,31 +16,43 @@
 
 package nl.conspect.legacy.user;
 
-import nl.conspect.legacy.user.UserRepository;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import java.util.List;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by marten on 17-04-15.
  */
+@Repository
 class HibernateUserRepositoryImpl extends HibernateDaoSupport implements UserRepository {
 
+    @Autowired
+    public HibernateUserRepositoryImpl(SessionFactory sf) {
+        super.setSessionFactory(sf);
+    }
+    
+    @Override
     public void save(User user) {
         getHibernateTemplate().saveOrUpdate(user);
     }
 
+    @Override
     public User find(long id) {
-        return (User) getHibernateTemplate().get(User.class, Long.valueOf(id));
+        return (User) getHibernateTemplate().get(User.class, id);
     }
 
+    @Override
     public User findWithUsername(String username) {
         String hql = "from User u where u.username=:username";
         List users = getHibernateTemplate().findByNamedParam(hql, "username", username);
         return (User) DataAccessUtils.singleResult(users);
     }
 
+    @Override
     public void remove(User user) {
         getHibernateTemplate().delete(user);
     }

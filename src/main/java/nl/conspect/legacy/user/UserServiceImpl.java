@@ -16,43 +16,41 @@
 
 package nl.conspect.legacy.user;
 
-import nl.conspect.legacy.mail.MailService;
-import nl.conspect.legacy.remote.RemoteSystemSynchronizer;
-import nl.conspect.legacy.mail.SendEmail;
+import nl.conspect.legacy.event.EventBus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Marten Deinum
  */
+@Transactional
+@Service("userService")
 class UserServiceImpl implements UserService {
 
-    private final MailService mailService;
-    private final RemoteSystemSynchronizer synchronizer;
     private final UserRepository userRepository;
+    private final EventBus eventBus;
 
-    public UserServiceImpl(final MailService mailService, 
-                           final RemoteSystemSynchronizer synchronizer, 
-                           final UserRepository userRepository) {
-        this.mailService = mailService;
-        this.synchronizer = synchronizer;
+    @Autowired
+    public UserServiceImpl(final UserRepository userRepository,
+                           final EventBus eventBus) {
         this.userRepository = userRepository;
+        this.eventBus = eventBus;
     }
     
+    @Override
     public void save(User user) {
         userRepository.save(user);
-        sendEmail(user);
-        synchronizer.synchronize(user);
+        eventBus.emit(new UserCreatedEvent(user));
     }
 
-    private void sendEmail(final User user) {
-        String body = "Welcome new user: " + user.getDisplayName();
-        mailService.sendEmail(new SendEmail("New User", user.getEmailAddress(), body));
-    }
-
+    @Override
     public void update(User user) {
         userRepository.save(user);
-        synchronizer.synchronize(user);
+        eventBus.emit(new UserUpdatedEvent(user));
     }
 
+    @Override
     public User login(String username, String password) {
         User user = userRepository.findWithUsername(username);
         if (user != null && user.getPassword().equals(password)) {
