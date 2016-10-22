@@ -5,11 +5,13 @@
  */
 package nl.conspect.legacy.mail;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Shaun
  */
-public class SendEmail {
+public class SendEmail implements Serializable {
 
     private final String subject;
     private final String recipient;

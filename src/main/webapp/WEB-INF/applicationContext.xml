@@ -12,9 +12,11 @@
     <bean id="remoteSystemSynchronizer" class="nl.conspect.legacy.remote.RemoteSystemSynchronizer">
     </bean>
 
-    <bean id="mailService" class="nl.conspect.legacy.mail.SimpleMailService">
+    <bean id="mailService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+        <property name="serviceInterface" value="nl.conspect.legacy.mail.MailService" />
+        <property name="serviceUrl" value="http://localhost:8090/mail/mailService" />
     </bean>
-
+    
     <bean id="userService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="proxyInterfaces" value="nl.conspect.legacy.user.UserService" />
         <property name="transactionManager" ref="transactionManager" />

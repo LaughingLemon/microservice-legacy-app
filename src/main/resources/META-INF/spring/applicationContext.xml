@@ -9,9 +9,13 @@
 
     <import resource="classpath:/META-INF/spring/infrastructure-context.xml"/>
 
+    <bean id="mailService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+        <property name="serviceInterface" value="nl.conspect.legacy.mail.MailService" />
+        <property name="serviceUrl" value="http://localhost:8090/mail/mailService" />
+    </bean>
+
     <context:component-scan base-package="nl.conspect.legacy.user,
-                                          nl.conspect.legacy.event,
-                                          nl.conspect.legacy.mail"/>
+                                          nl.conspect.legacy.event"/>
 
     <bean class="nl.conspect.legacy.remote.RemoteSystemClient"/>
 
