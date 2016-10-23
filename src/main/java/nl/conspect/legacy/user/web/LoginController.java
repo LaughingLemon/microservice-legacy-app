@@ -38,6 +38,7 @@ public class LoginController extends AbstractController {
         this.userService = userService;
     }
 
+    @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String username = ServletRequestUtils.getStringParameter(request, "j_username");
         String password = ServletRequestUtils.getStringParameter(request, "j_password");

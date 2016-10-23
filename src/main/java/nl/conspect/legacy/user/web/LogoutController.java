@@ -29,6 +29,7 @@ import java.util.Collections;
  */
 public class LogoutController extends AbstractController {
 
+    @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession(false);
         if (session != null) {

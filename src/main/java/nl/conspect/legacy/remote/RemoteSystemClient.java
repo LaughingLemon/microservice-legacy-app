@@ -26,7 +26,6 @@ import java.net.Socket;
  */
 public class RemoteSystemClient {
 
-
     public void send(String msg) throws IOException {
         System.out.println("Sending message to remote system: " + msg);
         Socket clientSocket = new Socket("localhost", 2345);
@@ -38,4 +37,5 @@ public class RemoteSystemClient {
             clientSocket.close();
         }
     }
+    
 }

@@ -31,6 +31,7 @@ public class UserController extends SimpleFormController {
         this.userService = userService;
     }
 
+    @Override
     protected void doSubmitAction(Object command) throws Exception {
         NewUserRegistrationForm form = (NewUserRegistrationForm) command;
 
