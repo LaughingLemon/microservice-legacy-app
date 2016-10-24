@@ -13,34 +13,68 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package nl.conspect.legacy.user.web;
 
 import nl.conspect.legacy.user.User;
 import nl.conspect.legacy.user.UserService;
-import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Marten Deinum
  */
-public class UserController extends SimpleFormController {
+@Controller
+@RequestMapping("/newuser")
+public class UserController {
+
+    private final Logger logger = Logger.getLogger(UserController.class.getName());
 
     private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @Override
-    protected void doSubmitAction(Object command) throws Exception {
-        NewUserRegistrationForm form = (NewUserRegistrationForm) command;
-
-        User user = new User();
-        user.setPassword(form.getPassword());
-        user.setDisplayName(form.getDisplayName());
-        user.setEmailAddress(form.getEmailAddress());
-        user.setUsername(form.getUsername());
-        userService.save(user);
+    @ModelAttribute("user")
+    public NewUserRegistrationForm getNewUserRegistrationForm() {
+        return new NewUserRegistrationForm();
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    public String get() {
+        logger.debug("get");
+        return "newuser";
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String post(@ModelAttribute("user") NewUserRegistrationForm form,
+                       BindingResult errors) {
+        logger.debug("post: errors.hasErrors() = " + errors.hasErrors());
+        if (errors.hasErrors()) {
+            return "something";
+        } else {
+            User user = new User();
+            user.setPassword(form.getPassword());
+            user.setDisplayName(form.getDisplayName());
+            user.setEmailAddress(form.getEmailAddress());
+            user.setUsername(form.getUsername());
+            userService.save(user);
+            return "newuser-success";
+        }
+    }
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setDisallowedFields("id");
+        binder.setValidator(new UserValidator());
+    }
+    
 }

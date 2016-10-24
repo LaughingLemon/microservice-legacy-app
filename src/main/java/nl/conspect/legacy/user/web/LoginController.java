@@ -26,28 +26,42 @@ import org.springframework.web.util.WebUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * @author marten
  */
-public class LoginController extends AbstractController {
+@Controller
+@RequestMapping("/login")
+@SessionAttributes({"currentUser", "msg"})
+public class LoginController {
 
     private final UserService userService;
 
+    @Autowired
     public LoginController(UserService userService) {
         this.userService = userService;
     }
 
-    @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String username = ServletRequestUtils.getStringParameter(request, "j_username");
-        String password = ServletRequestUtils.getStringParameter(request, "j_password");
-
+    @RequestMapping(method = RequestMethod.POST)
+    public String post(@RequestParam("j_username") String username, 
+                       @RequestParam("j_password") String password,
+                       ModelMap model) {
         User user = userService.login(username, password);
         if (user != null) {
-            WebUtils.setSessionAttribute(request, "currentUser", user);
-            return new ModelAndView("account");
+            model.addAttribute("currentUser", user);
+            return "account";
         }
-        return new ModelAndView("index", Collections.singletonMap("msg", "Wrong username/password combination."));
+        model.addAttribute("msg", "Wrong username/password combination.");
+        return "index";
     }
+    
 }

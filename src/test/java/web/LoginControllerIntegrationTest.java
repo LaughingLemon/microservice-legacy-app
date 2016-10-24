@@ -52,13 +52,15 @@ public class LoginControllerIntegrationTest extends AbstractJUnit4SpringContextT
 
     @Test
     public void testLoginUser() throws InterruptedException, IOException, MessagingException, Exception {
-        when(userService.login("foobar", "password")).thenReturn(new User());
+        User newUser = new User();
+        when(userService.login("foobar", "password")).thenReturn(newUser);
         mvc.perform(
                 post("/login")
                 .param("id", "123")
                 .param("j_username", "foobar")
                 .param("j_password", "password"))
                 .andExpect(model().hasNoErrors())
+                .andExpect(model().attribute("currentUser", newUser))
                 .andExpect(view().name("account"));
 
         verify(userService).login(Matchers.eq("foobar"), Matchers.eq("password"));

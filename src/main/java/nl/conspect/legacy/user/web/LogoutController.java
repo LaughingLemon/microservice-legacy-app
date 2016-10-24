@@ -17,24 +17,28 @@
 package nl.conspect.legacy.user.web;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 /**
  * @author marten
  */
-public class LogoutController extends AbstractController {
+@Controller
+@RequestMapping("/logout")
+public class LogoutController {
 
-    @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        return new ModelAndView("redirect:/app/index", Collections.singletonMap("msg", "Logout successful."));
+    @RequestMapping(method = RequestMethod.GET)
+    public String logout(ModelMap model) {
+        model.addAttribute("msg", "Logout successful.");
+        return "redirect:/app/index";
     }
+    
 }

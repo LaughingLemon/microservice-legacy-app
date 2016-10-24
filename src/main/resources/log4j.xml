@@ -25,11 +25,15 @@
             <param name="ConversionPattern" value="%d [%15.15t] %-5p %30.30c %x - %m%n" />
         </layout>
     </appender>
-
+	
     <logger name="org.springframework">
         <level value="debug" />
     </logger>
-
+	
+    <logger name="nl.conspect.legacy">
+        <level value="debug" />
+    </logger>
+	
     <root>
         <priority value="info" />
         <appender-ref ref="console" />
